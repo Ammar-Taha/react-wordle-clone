@@ -1,4 +1,6 @@
 import { useState } from "react";
+import Header from "./components/Header.jsx";
+import Game from "./components/Game.jsx";
 import "./reset.css";
 import "./App.css";
 

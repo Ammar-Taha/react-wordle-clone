@@ -1,4 +1,6 @@
 import { useState } from "react";
+import WordGuess from "./WordGuess.jsx";
+import GuessesGrid from "./GuessesGrid.jsx";
 import { sample } from "../utils";
 import { WORDS } from "../data";
 
@@ -8,5 +10,12 @@ const answer = sample(WORDS);
 console.info({ answer });
 
 export default function Game() {
-  return <></>;
+  const [guessesList, setGuessesList] = useState([]);
+
+  return (
+    <>
+      <GuessesGrid guessesList={guessesList} />
+      <WordGuess setGuessesList={setGuessesList} />
+    </>
+  );
 }

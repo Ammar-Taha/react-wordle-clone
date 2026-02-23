@@ -1,12 +1,23 @@
-import { useState } from "react";
+import { checkGuess } from "../game-helpers.js";
 
-export default function WordGuess({ setGuessesList }) {
-  const [guess, setGuess] = useState("");
-
+export default function WordGuess({
+  guessState: { guess, setGuess },
+  setGuessesList,
+  answer,
+  setResults,
+  setHasWon,
+  disabled,
+}) {
   const handleGuess = (e) => {
     e.preventDefault();
+    if (disabled) return;
 
     setGuessesList((prevGuesses) => [...prevGuesses, guess]);
+
+    const nextResultRow = checkGuess(guess, answer);
+    setResults((prev) => [...prev, nextResultRow]);
+
+    if (guess === answer) setHasWon(true);
 
     setGuess("");
   };
@@ -16,6 +27,7 @@ export default function WordGuess({ setGuessesList }) {
       <label htmlFor="guess-input">Enter guess:</label>
       <input
         required
+        disabled={disabled}
         minLength={5}
         maxLength={5}
         pattern="[a-zA-Z]{5}"
